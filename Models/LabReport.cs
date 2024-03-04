@@ -15,7 +15,6 @@ namespace Models
         public int PrescriptionID { get; set; }
         public DateTime DateTime { get; set; }
         public int TestId { get; set; }
-        public Test? Test { get; set; }
         public string Status { get; set; } = null!;
         public int LbAstID { get; set; }
     }
