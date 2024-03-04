@@ -19,11 +19,5 @@ namespace Models
         public string? Address { get; set; }
         public string? Email { get; set; }
         public string? Gender { get; set; }
-
-        [JsonIgnore]
-        public List<Appointment>? Appointment { get; set; }
-
-        [JsonIgnore]
-        public List<Patient_Teles>? Patient_Teles { get; set; }
     }
 }

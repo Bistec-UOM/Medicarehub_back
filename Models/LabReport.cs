@@ -12,32 +12,11 @@ namespace Models
     {
 
         public int Id { get; set; }
-
-        [ForeignKey("Id")]
         public int PrescriptionID { get; set; }
-        [JsonIgnore]
-        public Prescription? Prescription { get; set; }
-
-
         public DateTime DateTime { get; set; }
-
-
-        [ForeignKey("Id")]
         public int TestId { get; set; }
-        [JsonIgnore]
         public Test? Test { get; set; }
-
-
-        [JsonIgnore]
-        public List<Record>? Records { get; set; }
-
-
         public string Status { get; set; } = null!;
-
-
-        [ForeignKey("LbAstID")]
         public int LbAstID { get; set; }
-        [JsonIgnore]
-        public User? LbAst { get; set; }
     }
 }

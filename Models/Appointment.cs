@@ -6,32 +6,12 @@ namespace Models
 {
     public class Appointment
     {
-        [Key]
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
         public string? Status { get; set; } 
-
-
-        [ForeignKey("Id")]
         public int PatientId { get; set; }
-        [JsonIgnore]
-        public Patient? Patient { get; set; }
-
-
-        [ForeignKey("DoctorId")]
         public int DoctorId { get; set; }
-        [JsonIgnore]
-        public User? Doctor { get; set; }
-
-
-        [ForeignKey("RecepId")]
         public int RecepId { get; set; }
-        [JsonIgnore]
-        public User? Recep { get; set; }
-
-
-        [JsonIgnore]
-        public Prescription? Prescription { get; set; } = null;
 
 
     }

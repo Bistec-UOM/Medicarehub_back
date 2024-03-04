@@ -17,7 +17,5 @@ namespace Models
         public float Price { get; set; }
         public string? Avaliable { get; set; }
 
-        [JsonIgnore]
-        public Bill_drug? Bill_drug { get; set; }
     }
 }

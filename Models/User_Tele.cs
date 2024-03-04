@@ -12,6 +12,5 @@ namespace Models
     {
         public int Id { get; set; }
         public int Telephonenumber { get; set; }
-        public User? User { get; set; }
     }
 }

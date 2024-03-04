@@ -18,11 +18,6 @@ namespace Models
         public string Provider { get; set; } = null!;
 
 
-        [JsonIgnore]
-        public List<ReportFields>? ReportFields { get; set; }
-        [JsonIgnore]
-        public List<LabReport>? LabReport { get; set; }
-
 
     }
 }
