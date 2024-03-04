@@ -34,18 +34,6 @@ namespace DataAccessLayer
         public DbSet<User> users { get; set; }
         public DbSet<User_Tele> user_Teles { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Appointment>()
-                .HasOne(a => a.Doctor)
-                .WithMany()
-                .HasForeignKey(a => a.DoctorId)
-                .OnDelete(DeleteBehavior.Restrict); // Adjust delete behavior as needed
-
-            // Configure other entity relationships
-
-            base.OnModelCreating(modelBuilder);
-        }
 
     }
 

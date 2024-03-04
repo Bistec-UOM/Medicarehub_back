@@ -47,12 +47,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("RecepId");
-
                     b.ToTable("appointments");
                 });
 
@@ -74,11 +68,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DrugID")
-                        .IsUnique();
-
-                    b.HasIndex("PrescriptionID");
 
                     b.ToTable("bill_Drugs");
                 });
@@ -139,12 +128,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LbAstID");
-
-                    b.HasIndex("PrescriptionID");
-
-                    b.HasIndex("TestId");
-
                     b.ToTable("labReports");
                 });
 
@@ -193,15 +176,10 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Telephonenumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Patient_Teles");
                 });
@@ -228,8 +206,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PrescriptionId");
-
                     b.ToTable("prescript_Drugs");
                 });
 
@@ -255,11 +231,6 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentID")
-                        .IsUnique();
-
-                    b.HasIndex("CashierId");
-
                     b.ToTable("prescriptions");
                 });
 
@@ -284,10 +255,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LabReportId");
-
-                    b.HasIndex("ReportFieldId");
 
                     b.ToTable("records");
                 });
@@ -321,8 +288,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TestId");
 
                     b.ToTable("reportFields");
                 });
@@ -428,219 +393,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Telephonenumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("user_Teles");
-                });
-
-            modelBuilder.Entity("Models.Appointment", b =>
-                {
-                    b.HasOne("Models.User", "Doctor")
-                        .WithMany("Appointment")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Patient", "Patient")
-                        .WithMany("Appointment")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.User", "Recep")
-                        .WithMany()
-                        .HasForeignKey("RecepId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-
-                    b.Navigation("Recep");
-                });
-
-            modelBuilder.Entity("Models.Bill_drug", b =>
-                {
-                    b.HasOne("Models.Drug", "Drug")
-                        .WithOne("Bill_drug")
-                        .HasForeignKey("Models.Bill_drug", "DrugID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Prescription", "Prescription")
-                        .WithMany("Bill_drug")
-                        .HasForeignKey("PrescriptionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Drug");
-
-                    b.Navigation("Prescription");
-                });
-
-            modelBuilder.Entity("Models.LabReport", b =>
-                {
-                    b.HasOne("Models.User", "LbAst")
-                        .WithMany("LabReport")
-                        .HasForeignKey("LbAstID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Prescription", "Prescription")
-                        .WithMany("LabReport")
-                        .HasForeignKey("PrescriptionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.Test", "Test")
-                        .WithMany("LabReport")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LbAst");
-
-                    b.Navigation("Prescription");
-
-                    b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("Models.Patient_Teles", b =>
-                {
-                    b.HasOne("Models.Patient", "Patient")
-                        .WithMany("Patient_Teles")
-                        .HasForeignKey("PatientId");
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Models.Prescript_drug", b =>
-                {
-                    b.HasOne("Models.Prescription", "Prescription")
-                        .WithMany("Prescript_drug")
-                        .HasForeignKey("PrescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Prescription");
-                });
-
-            modelBuilder.Entity("Models.Prescription", b =>
-                {
-                    b.HasOne("Models.Appointment", "Appointment")
-                        .WithOne("Prescription")
-                        .HasForeignKey("Models.Prescription", "AppointmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.User", "Cashier")
-                        .WithMany("Prescription")
-                        .HasForeignKey("CashierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Appointment");
-
-                    b.Navigation("Cashier");
-                });
-
-            modelBuilder.Entity("Models.Record", b =>
-                {
-                    b.HasOne("Models.LabReport", "LabReport")
-                        .WithMany("Records")
-                        .HasForeignKey("LabReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.ReportFields", "ReportField")
-                        .WithMany("Record")
-                        .HasForeignKey("ReportFieldId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LabReport");
-
-                    b.Navigation("ReportField");
-                });
-
-            modelBuilder.Entity("Models.ReportFields", b =>
-                {
-                    b.HasOne("Models.Test", "Test")
-                        .WithMany("ReportFields")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("Models.User_Tele", b =>
-                {
-                    b.HasOne("Models.User", "User")
-                        .WithMany("User_Tele")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Models.Appointment", b =>
-                {
-                    b.Navigation("Prescription");
-                });
-
-            modelBuilder.Entity("Models.Drug", b =>
-                {
-                    b.Navigation("Bill_drug");
-                });
-
-            modelBuilder.Entity("Models.LabReport", b =>
-                {
-                    b.Navigation("Records");
-                });
-
-            modelBuilder.Entity("Models.Patient", b =>
-                {
-                    b.Navigation("Appointment");
-
-                    b.Navigation("Patient_Teles");
-                });
-
-            modelBuilder.Entity("Models.Prescription", b =>
-                {
-                    b.Navigation("Bill_drug");
-
-                    b.Navigation("LabReport");
-
-                    b.Navigation("Prescript_drug");
-                });
-
-            modelBuilder.Entity("Models.ReportFields", b =>
-                {
-                    b.Navigation("Record");
-                });
-
-            modelBuilder.Entity("Models.Test", b =>
-                {
-                    b.Navigation("LabReport");
-
-                    b.Navigation("ReportFields");
-                });
-
-            modelBuilder.Entity("Models.User", b =>
-                {
-                    b.Navigation("Appointment");
-
-                    b.Navigation("LabReport");
-
-                    b.Navigation("Prescription");
-
-                    b.Navigation("User_Tele");
                 });
 #pragma warning restore 612, 618
         }
