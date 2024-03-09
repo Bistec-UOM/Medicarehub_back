@@ -15,6 +15,7 @@ namespace Models
         public int AppointmentID { get; set; }
         public float Total { get; set; }
         public int CashierId { get; set; }
+        public string? Description { get; set; }
 
     }
 }
